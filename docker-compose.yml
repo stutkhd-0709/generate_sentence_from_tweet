@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  nlp-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tw_generate:latest
+    container_name: tweet_generate
+    env_file: .env
+    volumes:
+      - .:/work
+    tty: true

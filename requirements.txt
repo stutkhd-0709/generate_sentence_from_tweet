@@ -1,0 +1,3 @@
+mecab-python3
+requests_oauthlib
+python-dotenv
