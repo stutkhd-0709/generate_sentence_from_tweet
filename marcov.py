@@ -1,14 +1,17 @@
-from config import CONFIG
+from dotenv import load_dotenv
 from requests_oauthlib import OAuth1Session
 import json
 import itertools
 import random
 import MeCab
 import re
+import os
 
 class Marcov_tw():
-    def __init__(self,twitter):
+    def __init__(self,twitter, name):
         self.twitter = twitter
+        self.name = name
+
     def m_tokenize(self, text):
         text=re.sub(r'https?://[\w/:%#\$&\?\(\)~\.=\+\-…]+', "", text)#URL
         text = text.translate(str.maketrans({chr(0xFF01 + i): chr(0x21 + i) for i in range(94)}))
@@ -25,7 +28,7 @@ class Marcov_tw():
     def get_tweet(self):
         #TwitterAPIの認証情報
         url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
-        params = {"screen_name":"someone","count":100,"include_rts":False}
+        params = {"screen_name":self.name, "count":100,"include_rts":False}
         req = self.twitter.get(url, params=params)
 
         if req.status_code == 200:
@@ -44,7 +47,7 @@ class Marcov_tw():
         wakati_twe = [self.m_tokenize(sentence) for sentence in self.get_tweet()]
         wakati_twe = list(itertools.chain.from_iterable(wakati_twe))
 
-        marcov = {} 
+        marcov = {}
         w1 = ""
         w2 = ""
         for word in wakati_twe:
@@ -80,13 +83,18 @@ class Marcov_tw():
         return ans
 
 if  __name__ == "__main__":
-    consumer_key = CONFIG["CONSUMER_KEY"]
-    consumer_secret = CONFIG["CONSUMER_SECRET"]
-    access_token = CONFIG["ACCESS_TOKEN"]
-    access_token_secret = CONFIG["ACCESS_TOKEN_SECRET"]
-    twitter = OAuth1Session(consumer_key, consumer_secret, access_token, access_token_secret)
+    dotenv_path = '/work/.env'
+    load_dotenv(dotenv_path)
+    CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
+    CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
+    ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+    ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
+    TW_ID = os.environ.get('TW_ID')
+
+    twitter = OAuth1Session(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+
     url_update = "https://api.twitter.com/1.1/statuses/update.json"
-    mt = Marcov_tw(twitter)
+    mt = Marcov_tw(twitter, TW_ID)
     tweet = mt.marcov_sentence()
 
     params = {"status" : tweet}
