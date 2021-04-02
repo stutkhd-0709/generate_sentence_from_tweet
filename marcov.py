@@ -79,7 +79,8 @@ class Marcov_tw():
 
         #twitterの文字制限
         if len(ans) > 140:
-            ans = ans[:141]
+            ans = ans[:137]
+            ans += '笑笑!!'
         return ans
 
 if  __name__ == "__main__":
