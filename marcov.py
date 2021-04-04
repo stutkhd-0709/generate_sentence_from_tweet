@@ -90,12 +90,12 @@ if  __name__ == "__main__":
     CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
     ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
     ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET')
-    TW_ID = os.environ.get('TW_ID')
+    TW_418_ID = os.environ.get('TW_418_ID')
 
     twitter = OAuth1Session(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
     url_update = "https://api.twitter.com/1.1/statuses/update.json"
-    mt = Marcov_tw(twitter, TW_ID)
+    mt = Marcov_tw(twitter, TW_418_ID)
     tweet = mt.marcov_sentence()
 
     params = {"status" : tweet}
