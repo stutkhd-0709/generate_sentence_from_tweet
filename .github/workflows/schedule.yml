@@ -1,11 +1,8 @@
-name: Scheduler
+name: bot
 
 on:
-  push:
-    branches:
-      - master
   schedule:
-    - cron: '25 23 * * SUN'
+    - cron: '55 14 * * SUN'
 
 jobs:
   test:
