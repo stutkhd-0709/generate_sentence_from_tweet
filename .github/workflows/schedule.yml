@@ -28,7 +28,9 @@ jobs:
       - name: Set up mecab
         run: |
         sudo apt-get update
-        sudo apt-get install -y mecab mecab-utils libmecab-dev
+        sudo apt-get install -y mecab
+        sudo apt-get install -y mecab-utils
+        sudo apt-get install -y libmecab-dev
       - name: Pip install dependencies
         run: |
           python -m pip install --upgrade pip
