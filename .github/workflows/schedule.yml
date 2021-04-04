@@ -41,9 +41,9 @@ jobs:
       - name: deploy bot
         run: python marcov.py
         env:
-          CONSUMER_KEY: ${{ secrets.API_KEY }}
-          CONSUMER_SECRET: ${{ secrets.API_KEY }}
-          ACCESS_TOKEN: ${{ secrets.API_KEY }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.API_KEY }}
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
           MECABRC: /etc/mecabrc
-          TW_ID: ${{ secrets.TW_ID }}
+          TW_418_ID: ${{ secrets.TW_418_ID }}
